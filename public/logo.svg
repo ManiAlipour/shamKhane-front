@@ -1,0 +1,55 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+
+<!-- شمع مدرن -->
+<path d="M130,190 
+C130,190 140,185 150,185
+C160,185 170,190 170,190
+L165,140 
+C165,140 158,135 150,135
+C142,135 135,140 135,140 Z" 
+fill="#E8C39E"/>
+
+<!-- شعله با طراحی هنری -->
+<path d="M150,130
+C155,125 158,115 150,105
+C142,115 145,125 150,130"
+fill="#F1C40F">
+<animate attributeName="d" 
+values="M150,130 C155,125 158,115 150,105 C142,115 145,125 150,130;
+M150,130 C158,125 160,115 150,103 C140,115 142,125 150,130;
+M150,130 C155,125 158,115 150,105 C142,115 145,125 150,130"
+dur="1.5s"
+repeatCount="indefinite"/>
+</path>
+
+<!-- نقوش تزئینی -->
+<path d="M110,150 Q150,140 190,150" fill="none" stroke="#E8C39E" stroke-width="0.5"/>
+<path d="M110,160 Q150,170 190,160" fill="none" stroke="#E8C39E" stroke-width="0.5"/>
+
+<!-- متن لوگو -->
+<text x="150" y="220" 
+text-anchor="middle" 
+fill="#E8C39E" 
+font-family="Arial" 
+font-size="16"
+letter-spacing="2">SHAM KHANE</text>
+
+<text x="150" y="240" 
+text-anchor="middle" 
+fill="#E8C39E" 
+font-family="Arial" 
+font-size="16"
+letter-spacing="2">شمع خانه</text>
+
+<!-- عناصر تزئینی -->
+<circle cx="150" cy="85" r="2" fill="#E8C39E"/>
+<circle cx="150" cy="255" r="2" fill="#E8C39E"/>
+<circle cx="85" cy="150" r="2" fill="#E8C39E"/>
+<circle cx="215" cy="150" r="2" fill="#E8C39E"/>
+
+<!-- خطوط ظریف تزئینی -->
+<line x1="95" y1="95" x2="105" y2="105" stroke="#E8C39E" stroke-width="0.5"/>
+<line x1="195" y1="95" x2="205" y2="105" stroke="#E8C39E" stroke-width="0.5"/>
+<line x1="95" y1="205" x2="105" y2="195" stroke="#E8C39E" stroke-width="0.5"/>
+<line x1="195" y1="205" x2="205" y2="195" stroke="#E8C39E" stroke-width="0.5"/>
+</svg>

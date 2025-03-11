@@ -23,7 +23,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
-          <PageLogger />
+          {/* <PageLogger />  //! TODO: uncomment this when the page logger is ready */}
         </Providers>
       </body>
     </html>

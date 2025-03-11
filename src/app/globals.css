@@ -1,28 +1,59 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "sans-fa";
-  src: url(/sansfa.ttf);
+@layer base {
+  @font-face {
+    font-family: "sans-fa";
+    src: url("/sansfa.ttf");
+  }
+
+  /* اگر فایل‌های دیگری برای وزن‌های مختلف دارید، آنها را اینجا اضافه کنید */
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 0, 0, 0;
+  }
 }
 
+/* استفاده از font-synthesis برای شبیه‌سازی وزن‌های مختلف */
+.font-thin,
+.font-extralight,
+.font-light {
+  font-family: "sans-fa" !important;
+  font-weight: 400;
+  font-synthesis: weight;
+  font-variation-settings: "wght" 300;
+}
+
+.font-normal {
+  font-family: "sans-fa" !important;
+  font-weight: 400;
+}
+
+.font-medium,
+.font-semibold {
+  font-family: "sans-fa" !important;
+  font-weight: 400;
+  font-synthesis: weight;
+  font-variation-settings: "wght" 500;
+}
+
+.font-bold,
+.font-extrabold,
+.font-black {
+  font-family: "sans-fa" !important;
+  font-weight: 400;
+  font-synthesis: weight;
+  font-variation-settings: "wght" 700;
+}
+
+*,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: "sans-fa";
-}
-
-* {
-  font-family: "sans-fa";
+  font-family: "sans-fa" !important;
 }
