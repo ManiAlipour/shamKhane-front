@@ -9,142 +9,172 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { RiMenu2Line } from "react-icons/ri";
-import Image from "next/image";
-import { FaHeart, FaHome, FaRegUserCircle, FaSearch, FaUser } from "react-icons/fa";
+import {
+  FaHome,
+  FaUser,
+  FaShoppingCart,
+  FaSearch,
+  FaRegUserCircle,
+  FaUserCircle,
+} from "react-icons/fa";
 import { IoStorefront } from "react-icons/io5";
 import { MdDescription } from "react-icons/md";
 import { GrContact } from "react-icons/gr";
+import { RiMenu2Line } from "react-icons/ri";
+import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
-import { TbShoppingCart } from "react-icons/tb";
+import { Badge, IconButton, Tooltip } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store/store";
-import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 
 export default function Navbar() {
-  const [open, setOpen] = React.useState(false);
-
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
-  };
-
-  const { total } = useSelector((state: RootState) => state.cart);
-  const pathname = usePathname();
-
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const [isSearchVisible, setIsSearchVisible] = React.useState(false);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const token = Cookies.get("token");
 
-  const drawerKeys = [
-    {
-      href: "/",
-      text: "خانه",
-      icon: <FaHome />,
-    },
-    {
-      href: "/products",
-      text: "محصولات",
-      icon: <IoStorefront />,
-    },
-    {
-      href: "/favorites",
-      text: "علاقه مندی ها",
-      icon: <FaHeart />,
-    },
-    {
-      href: "/about",
-      text: "درباره ما",
-      icon: <MdDescription />,
-    },
-    {
-      href: "/contact",
-      text: "تماس با ما",
-      icon: <GrContact />,
-    },
-    // if token is not null, show login button
-    {
-      href: "/login",
-      text: "ورود",
-      icon: <FaUser />,
-    },
+  const menuItems = [
+    { text: "صفحه اصلی", icon: <FaHome />, href: "/" },
+    { text: "محصولات", icon: <IoStorefront />, href: "/products" },
+    { text: "درباره ما", icon: <MdDescription />, href: "/about" },
+    { text: "تماس با ما", icon: <GrContact />, href: "/contact" },
+    { text: "حساب کاربری", icon: <FaUser />, href: "/profile" },
   ];
 
-  const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-      <List>
-        <div className="flex items-center justify-center p-2 gap-2">
-          <h1>شمع خانه</h1>
-        </div>
-
-        {drawerKeys.map(({ href, text, icon }, index) => (
-          <ListItem
-            className={`${
-              pathname === href ? "bg-primary text-background" : ""
-            } p-2 rounded-xl`}
-            key={index}
-            disablePadding
-          >
-            <Link href={href}>
-              <ListItemButton>
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </Box>
-  );
+  const toggleDrawer =
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+      setIsDrawerOpen(open);
+    };
 
   return (
-    <div>
-      <div className="flex items-center justify-between w-full gap-4 p-4">
-        <span className="flex items-center gap-2 text-2xl whitespace-nowrap">
-          <Image src="/icon-light.svg" alt="logo" width={30} height={30} />
-          <span className="font-black">
-            <b>شمع خانه</b>
-          </span>
-        </span>
-
-        <SearchBar />
-
-        <div className="flex items-center gap-2">
-          <Link href="/cart">
-            <Button
-              className="relative flex items-center gap-2"
-              color="primary"
-            >
-              <TbShoppingCart className="text-2xl" />
-              <span>سبد خرید</span>
-              <span className="absolute top-0 right-0 flex items-center justify-center w-4 h-4 text-sm text-white rounded-full bg-secondary">
-                {total}
+    <nav className="sticky top-0 z-50 bg-white shadow-md">
+      {/* Desktop Navigation */}
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between px-4 py-3">
+          {/* Logo and Brand */}
+          <div className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
+              <Image src="/icon-light.svg" alt="logo" width={30} height={30} />
+              <span className="text-xl hidden sm:inline">
+                <b>شمع خانه</b>
               </span>
-            </Button>
-          </Link>
-
-          {token ? (
-            <Link href="/dashboard">
-              <Button variant="contained" startIcon={<FaRegUserCircle />}>
-                <span>حساب کاربری</span>
-              </Button>
             </Link>
-          ) : (
-            <Link href="/login">
-              <Button variant="contained" startIcon={<FaRegUserCircle />}>
-                <span>ورود / ثبت نام</span>
-              </Button>
-            </Link>
-          )}
+          </div>
 
-          <Button onClick={toggleDrawer(true)} className="min-w-fit">
-            <RiMenu2Line className="text-2xl" />
-          </Button>
+          {/* Search and Cart */}
+          <div className="flex items-center gap-4">
+            {/* Search Bar - Full width on mobile when active 
+            //! TODO: The search bar has problems with mobile size. 
+            //! I need to fix it. 
+            */}
+            <div
+              className={`
+              ${
+                isSearchVisible
+                  ? "absolute left-0 right-0 top-0 p-4 bg-white dark:bg-gray-900 md:relative md:p-0"
+                  : "hidden md:block"
+              }
+              w-full md:w-auto
+            `}
+            >
+              <SearchBar />
+            </div>
+
+            {/* Search Toggle for Mobile */}
+            <button
+              className="md:hidden text-gray-600 hover:text-primary"
+              onClick={() => setIsSearchVisible(!isSearchVisible)}
+            >
+              {!isSearchVisible && <FaSearch className="text-xl" />}
+            </button>
+
+            {/* Cart */}
+            <Link href="/cart">
+              <Tooltip title="سبد خرید">
+                <IconButton>
+                  <Badge badgeContent={itemCount} color="primary"></Badge>
+                  <FaShoppingCart color="action" />
+                </IconButton>
+              </Tooltip>
+            </Link>
+
+            {/* user dashboard */}
+            {token ? (
+              <Link href="/dashboard">
+                <Tooltip title="داشبورد">
+                  <IconButton>
+                    <FaUserCircle />
+                  </IconButton>
+                </Tooltip>
+              </Link>
+            ) : (
+              <Link href="/login">
+                <Tooltip title="ثبت نام / ورود">
+                  <IconButton>
+                    <FaUserCircle />
+                  </IconButton>
+                </Tooltip>
+              </Link>
+            )}
+
+            {/* Mobile Menu Button */}
+            <IconButton
+              className="md:hidden"
+              onClick={toggleDrawer(true)}
+              edge="end"
+              color="inherit"
+            >
+              <RiMenu2Line className="text-2xl text-gray-600" />
+            </IconButton>
+          </div>
         </div>
       </div>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
-        {DrawerList}
+
+      {/* Mobile Navigation Drawer */}
+      <Drawer
+        open={isDrawerOpen}
+        onClose={toggleDrawer(false)}
+        sx={{
+          "& .MuiDrawer-paper": {
+            width: 280,
+            boxSizing: "border-box",
+          },
+        }}
+      >
+        <Box className="p-4">
+          <div className="flex items-center gap-2 mb-4">
+            <Image src="/icon-light.svg" alt="logo" width={30} height={30} />
+            <span className="text-xl font-black">شمع خانه</span>
+          </div>
+          <Divider />
+          <List>
+            {menuItems.map((item) => (
+              <ListItem key={item.text} disablePadding>
+                <ListItemButton
+                  component={Link}
+                  href={item.href}
+                  onClick={toggleDrawer(false)}
+                >
+                  <ListItemIcon className="min-w-[40px]">
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
       </Drawer>
-    </div>
+    </nav>
   );
 }
