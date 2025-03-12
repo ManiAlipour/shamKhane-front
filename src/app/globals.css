@@ -6,6 +6,17 @@
     src: url("/sansfa.ttf");
   }
 
+  @theme {
+    --color-background: #ffffff;
+    --color-foreground: #000000;
+    --color-primary: #336699;
+    --color-secondary: #6699cc;
+    --color-tertiary: #99ccff;
+    --color-btn: #ffcc66;
+    --color-btn-hover: #f9a825;
+    --color-secondary-background: oklch(0.709 0.01 56.259);
+  }
+
   /* اگر فایل‌های دیگری برای وزن‌های مختلف دارید، آنها را اینجا اضافه کنید */
 }
 
