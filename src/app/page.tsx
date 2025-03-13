@@ -1,8 +1,10 @@
+import Categories from "@/components/layout/home/category";
+import PopularProducts from "@/components/layout/home/PopularProducts";
 import PrimaryContainer from "@/components/layout/PrimaryContainer";
 import InformationCard from "@/components/ui/InformationCart";
 import { informationCards } from "@/lib/constants/cards";
 import { Button } from "@mui/material";
-import { FaShoppingCart, FaUser, FaUserPlus } from "react-icons/fa";
+import { FaShoppingCart, FaUserPlus } from "react-icons/fa";
 
 export default function Home() {
   return (
@@ -42,7 +44,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <PrimaryContainer>
+      <PrimaryContainer className="md:py-16 p-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
           {informationCards.map((card, index) => (
             <InformationCard
@@ -54,6 +56,12 @@ export default function Home() {
           ))}
         </div>
       </PrimaryContainer>
+
+      <div className="py-10   ">
+        <Categories />
+      </div>
+
+      <PopularProducts />
     </main>
   );
 }
