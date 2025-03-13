@@ -1,5 +1,6 @@
 import PrimaryContainer from "@/components/layout/PrimaryContainer";
 import InformationCard from "@/components/ui/InformationCart";
+import { informationCards } from "@/lib/constants/cards";
 import { Button } from "@mui/material";
 import { FaShoppingCart, FaUser, FaUserPlus } from "react-icons/fa";
 
@@ -42,8 +43,15 @@ export default function Home() {
 
       {/* About Section */}
       <PrimaryContainer>
-        <div className="flex flex-col items-center justify-center gap-4 max-w-2xl">
-          <InformationCard />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+          {informationCards.map((card, index) => (
+            <InformationCard
+              key={index}
+              title={card.title}
+              description={card.description}
+              icon={card.icon}
+            />
+          ))}
         </div>
       </PrimaryContainer>
     </main>

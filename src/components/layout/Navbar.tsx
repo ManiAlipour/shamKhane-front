@@ -74,13 +74,13 @@ export default function Navbar() {
   };
   return (
     <nav
-      className={`fixed w-full top-0 z-50 ${useScrollCondition(
+      className={`fixed w-full top-0 z-50 transition-colors duration-300 ${useScrollCondition(
         "bg-white",
         "bg-transparent text-white"
       )}  shadow-md`}
     >
       {/* Desktop Navigation */}
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto max-w-7xl">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Logo and Brand */}
           <div className="flex items-center gap-2">
@@ -118,7 +118,7 @@ export default function Navbar() {
 
             {/* Search Toggle for Mobile */}
             <button
-              className="md:hidden text-gray-600 hover:text-primary"
+              className="text-gray-600 md:hidden hover:text-primary"
               onClick={() => setIsSearchVisible(!isSearchVisible)}
             >
               {!isSearchVisible && <FaSearch className="text-xl" />}

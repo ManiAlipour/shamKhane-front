@@ -56,28 +56,27 @@ const theme = createTheme({
           font-style: normal;
           font-weight: 300;
           font-display: swap;
-          src: url('/fonts/IRANSans-Light.woff2') format('woff2');
+          src: url('/sansfa.ttf') format('ttf');
         }
         @font-face {
           font-family: 'IRANSans';
           font-style: normal;
           font-weight: 400;
           font-display: swap;
-          src: url('/fonts/IRANSans.woff2') format('woff2');
+          src: url('/sansfa.ttf') format('ttf');
         }
         @font-face {
           font-family: 'IRANSans';
           font-style: normal;
           font-weight: 500;
           font-display: swap;
-          src: url('/fonts/IRANSans-Medium.woff2') format('woff2');
-        }
+          src: url('/sansfa.ttf') format('ttf');
         @font-face {
           font-family: 'IRANSans';
           font-style: normal;
           font-weight: 700;
           font-display: swap;
-          src: url('/fonts/IRANSans-Bold.woff2') format('woff2');
+          src: url('/sansfa.ttf') format('ttf');
         }
       `,
     },
