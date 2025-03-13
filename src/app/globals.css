@@ -37,7 +37,7 @@
 .font-extralight,
 .font-light {
   font-family: "sans-fa" !important;
-  font-weight: 400;
+  font-weight: 300;
   font-synthesis: weight;
   font-variation-settings: "wght" 300;
 }
@@ -50,21 +50,34 @@
 .font-medium,
 .font-semibold {
   font-family: "sans-fa" !important;
-  font-weight: 400;
+  font-weight: 500;
   font-synthesis: weight;
   font-variation-settings: "wght" 500;
 }
 
 .font-bold,
-.font-extrabold,
-.font-black {
+.font-extrabold {
   font-family: "sans-fa" !important;
-  font-weight: 400;
+  font-weight: 700;
   font-synthesis: weight;
   font-variation-settings: "wght" 700;
+}
+
+.font-extrabold {
+  font-weight: 600;
+}
+
+.font-black {
+  font-weight: 800;
 }
 
 *,
 body {
   font-family: "sans-fa" !important;
+}
+
+.bg-image-hero {
+  background-image: url("https://hardcore-euler-avoel0rps.storage.c2.liara.space/section-candle.jpg");
+  background-size: cover;
+  background-position: center;
 }

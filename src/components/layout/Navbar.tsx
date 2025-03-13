@@ -35,6 +35,15 @@ export default function Navbar() {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const token = Cookies.get("token");
+  const [scroll, setScroll] = React.useState(0);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScroll(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const menuItems = [
     { text: "صفحه اصلی", icon: <FaHome />, href: "/" },
@@ -56,8 +65,20 @@ export default function Navbar() {
       setIsDrawerOpen(open);
     };
 
+  const useScrollCondition = (conditionOne: string, conditionTwo: string) => {
+    if (scroll > 20) {
+      return conditionOne;
+    } else {
+      return conditionTwo;
+    }
+  };
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md">
+    <nav
+      className={`fixed w-full top-0 z-50 ${useScrollCondition(
+        "bg-white",
+        "bg-transparent text-white"
+      )}  shadow-md`}
+    >
       {/* Desktop Navigation */}
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between px-4 py-3">
@@ -65,7 +86,12 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2">
               <Image src="/icon-light.svg" alt="logo" width={30} height={30} />
-              <span className="text-xl hidden sm:inline">
+              <span
+                className={`text-xl hidden sm:inline ${useScrollCondition(
+                  "",
+                  "text-white"
+                )}`}
+              >
                 <b>شمع خانه</b>
               </span>
             </Link>
@@ -103,7 +129,7 @@ export default function Navbar() {
               <Tooltip title="سبد خرید">
                 <IconButton>
                   <Badge badgeContent={itemCount} color="primary"></Badge>
-                  <FaShoppingCart color="action" />
+                  <FaShoppingCart color={useScrollCondition("gray", "white")} />
                 </IconButton>
               </Tooltip>
             </Link>
@@ -113,7 +139,7 @@ export default function Navbar() {
               <Link href="/dashboard">
                 <Tooltip title="داشبورد">
                   <IconButton>
-                    <FaUserCircle />
+                    <FaUserCircle color={useScrollCondition("gray", "white")} />
                   </IconButton>
                 </Tooltip>
               </Link>
@@ -121,7 +147,7 @@ export default function Navbar() {
               <Link href="/login">
                 <Tooltip title="ثبت نام / ورود">
                   <IconButton>
-                    <FaUserCircle />
+                    <FaUserCircle color={useScrollCondition("gray", "white")} />
                   </IconButton>
                 </Tooltip>
               </Link>
@@ -134,7 +160,12 @@ export default function Navbar() {
               edge="end"
               color="inherit"
             >
-              <RiMenu2Line className="text-2xl text-gray-600" />
+              <RiMenu2Line
+                className={`text-2xl ${useScrollCondition(
+                  "text-gray-600",
+                  "text-white"
+                )}`}
+              />
             </IconButton>
           </div>
         </div>
